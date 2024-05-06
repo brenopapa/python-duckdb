@@ -1,0 +1,15 @@
+FROM python:3.11-slim-buster
+
+RUN pip install duckdb --upgrade
+
+RUN \ 
+    mkdir -p /duckdb/sql && \
+    mkdir -p /duckdb/data
+
+COPY    ./sql /duckdb/sql
+COPY    ./data /duckdb/data
+COPY    ./entrypoint.sh /duckdb
+
+RUN chmod +x /duckdb/entrypoint.sh
+
+CMD ["/duckdb/entrypoint.sh"]
